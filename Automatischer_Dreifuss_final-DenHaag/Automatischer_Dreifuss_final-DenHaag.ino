@@ -93,7 +93,8 @@ void setup() {
   Serial.println("Arduino bereit...");
   
   findTachyHz();    // Bestimmt HZ für Justiervorgang und Lage
-
+  //  tachyHz = 30;
+  // face = true;
 
 }
 
@@ -111,12 +112,12 @@ void loop() {
     if((fabs(QN) > SCHWELLWERT_QN)||(fabs(LN) > SCHWELLWERT_LN)){
       startTime = millis();
       Serial.println("Neigung zu groß, horizontiere...");
-      changeFace();
+    //  changeFace();
   //    delay(1000);
       tachyHorizontieren();
-      changeFace();
+    //  changeFace();
   //   delay(1000);
-      tachyHorizontieren();
+    //  tachyHorizontieren();
       endTime = millis();
 
       Serial.println("=============================");
@@ -546,20 +547,20 @@ void tachyHorizontieren(){
       if(fabs(QN) > fabs(LN)){
         // Stelle QN ein (passt von Vorzeichen her)
         if(QN < 0){
-          stepperPos1 = -10000;
-          stepperPos2 = 10000;
+          stepperPos1 = -10000;   // Nach links
+          stepperPos2 = -10000;
         }else if(QN > 0){
-          stepperPos1 = -10000;
+          stepperPos1 = 10000;
           stepperPos2 = 10000;
         }
       }else if (fabs(LN) > fabs(QN)){
         // Stelle LN ein
         if(LN < 0){
           stepperPos1 = 10000;
-          stepperPos2 = 10000;
+          stepperPos2 = -10000;
         }else if(LN > 0){
           stepperPos1 = -10000;
-          stepperPos2 = -10000;
+          stepperPos2 = 10000;
         }      
       }
 
